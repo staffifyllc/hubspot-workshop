@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The HubSpot Blueprint | 4-Week Live Workshop for RE Photography Agencies</title>
+    <meta name="description" content="Build the single source of truth your real estate photography agency needs. 4-day live workshop — sell, delegate, or automate with HubSpot.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --navy: #0a0e1a;
+            --navy-light: #111827;
+            --navy-mid: #1a2236;
+            --gold: #ff7a59;
+            --gold-light: #ff957a;
+            --gold-dim: rgba(255, 122, 89, 0.15);
+            --white: #f1f1f1;
+            --gray: #9ca3af;
+            --gray-light: #d1d5db;
+            --radius: 12px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--navy);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a { color: inherit; text-decoration: none; }
+
+        /* NAV */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(10, 14, 26, 0.85);
+            backdrop-filter: blur(12px);
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid rgba(212, 162, 84, 0.1);
+        }
+        .nav-logo {
+            font-weight: 800; font-size: 1.1rem; letter-spacing: -0.02em;
+        }
+        .nav-logo span { color: var(--gold); }
+        .hs-sprocket { width: 22px; height: 22px; color: var(--gold); vertical-align: -3px; margin-right: 6px; }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--gray); transition: color 0.2s; }
+        .nav-links a:hover { color: var(--white); }
+        .nav-cta {
+            background: var(--gold); color: var(--navy); padding: 0.5rem 1.25rem;
+            border-radius: 8px; font-weight: 700; font-size: 0.875rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(212, 162, 84, 0.3); }
+
+        .mobile-menu { display: none; background: none; border: none; color: var(--white); font-size: 1.5rem; cursor: pointer; }
+
+        /* UTILITY */
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 1.5rem; }
+        .section { padding: 6rem 0; }
+        .section-label {
+            text-transform: uppercase; font-size: 0.75rem; font-weight: 700;
+            letter-spacing: 0.15em; color: var(--gold); margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800;
+            line-height: 1.2; margin-bottom: 1rem; letter-spacing: -0.02em;
+            background: linear-gradient(135deg, var(--white) 0%, var(--gold) 60%, var(--gold-light) 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-sub { color: var(--gray); font-size: 1.05rem; max-width: 600px; margin-bottom: 2.5rem; }
+        .btn {
+            display: inline-block; background: var(--gold); color: var(--navy);
+            padding: 1rem 2.25rem; border-radius: 10px; font-weight: 700; font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; border: none;
+        }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(212, 162, 84, 0.35); }
+        .btn-outline {
+            background: transparent; border: 2px solid var(--gold); color: var(--gold);
+        }
+        .btn-outline:hover { background: var(--gold-dim); }
+
+        /* ANIMATIONS */
+        .fade-up {
+            opacity: 0; transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding-top: 5rem;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212, 162, 84, 0.08) 0%, transparent 70%),
+                var(--navy);
+        }
+        .hero-inner { text-align: center; max-width: 800px; margin: 0 auto; }
+        .hero-badge {
+            display: inline-block; background: var(--gold-dim); color: var(--gold);
+            padding: 0.4rem 1rem; border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+            margin-bottom: 1.5rem; letter-spacing: 0.04em;
+        }
+        .hero h1 {
+            font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 900;
+            line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.25rem;
+        }
+        .hero h1 em { font-style: normal; color: var(--gold); }
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.2rem); color: var(--gray-light);
+            max-width: 600px; margin: 0 auto 2.5rem;
+        }
+        .hero-ctas { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+        .hero-meta {
+            margin-top: 3rem; display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+        }
+        .hero-meta-item { text-align: center; }
+        .hero-meta-item strong { display: block; font-size: 1.25rem; color: var(--gold); }
+        .hero-meta-item span { font-size: 0.8rem; color: var(--gray); }
+
+        /* ===== PROBLEM ===== */
+        .problem { background: var(--navy-light); }
+        .problem-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;
+        }
+        .problem-card {
+            background: var(--navy-mid); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--radius); padding: 2rem;
+        }
+        .problem-card .icon { font-size: 1.75rem; margin-bottom: 1rem; }
+        .problem-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .problem-card p { color: var(--gray); font-size: 0.95rem; }
+
+        /* ===== PILLARS ===== */
+        .pillars-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+        }
+        .pillar-card {
+            background: var(--navy-light); border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--radius); padding: 2.5rem 2rem; text-align: center;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+        .pillar-card:hover { border-color: var(--gold); transform: translateY(-4px); }
+        .pillar-icon {
+            width: 56px; height: 56px; margin: 0 auto 1.25rem;
+            background: var(--gold-dim); border-radius: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+        }
+        .pillar-card h3 { font-size: 1.25rem; font-weight: 800; margin-bottom: 0.5rem; }
+        .pillar-card p { color: var(--gray); font-size: 0.95rem; }
+
+        /* ===== AGENDA ===== */
+        .agenda { background: var(--navy-light); }
+        .agenda-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem; }
+        .day-card {
+            background: var(--navy); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius); padding: 2rem; position: relative; overflow: hidden;
+        }
+        .day-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+        }
+        .day-num {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.12em;
+            color: var(--gold); font-weight: 700; margin-bottom: 0.75rem;
+        }
+        .day-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.75rem; }
+        .day-card ul { list-style: none; }
+        .day-card li {
+            padding: 0.35rem 0; color: var(--gray); font-size: 0.9rem;
+            padding-left: 1.25rem; position: relative;
+        }
+        .day-card li::before {
+            content: ''; position: absolute; left: 0; top: 0.7rem;
+            width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+        }
+
+        /* ===== HOST ===== */
+        .host-inner {
+            display: grid; grid-template-columns: auto 1fr; gap: 3rem; align-items: center;
+        }
+        .host-photo {
+            width: 200px; height: 200px; border-radius: 50%; background: var(--navy-mid);
+            border: 3px solid var(--gold); display: flex; align-items: center; justify-content: center;
+            font-size: 3rem; color: var(--gold); flex-shrink: 0;
+        }
+        .host-info h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.25rem; }
+        .host-info .host-role { color: var(--gold); font-weight: 600; font-size: 0.95rem; margin-bottom: 1rem; }
+        .host-info p { color: var(--gray-light); font-size: 1rem; max-width: 520px; }
+
+        /* ===== PROOF ===== */
+        .proof { background: var(--navy); }
+        .proof-inner {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+        }
+        .proof-screenshot {
+            border-radius: var(--radius); border: 1px solid rgba(255,255,255,0.08);
+            overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+        }
+        .proof-screenshot img { width: 100%; display: block; }
+        .proof-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-top: 1.5rem; }
+        .stat-card {
+            background: var(--navy-light); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius); padding: 1.25rem; text-align: center;
+        }
+        .stat-card .stat-num { font-size: 1.75rem; font-weight: 900; color: var(--gold); }
+        .stat-card .stat-label { font-size: 0.8rem; color: var(--gray); margin-top: 0.25rem; }
+        @media (max-width: 768px) {
+            .proof-inner { grid-template-columns: 1fr; }
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials { background: var(--navy-light); }
+        .testimonial-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;
+        }
+        .testimonial-card {
+            background: var(--navy); border: 1px solid rgba(255,255,255,0.06);
+            border-radius: var(--radius); padding: 2rem;
+        }
+        .testimonial-card .stars { color: var(--gold); font-size: 0.9rem; margin-bottom: 0.75rem; }
+        .testimonial-card blockquote {
+            color: var(--gray-light); font-size: 0.95rem; font-style: italic; margin-bottom: 1.25rem;
+        }
+        .testimonial-card .author { font-weight: 700; font-size: 0.9rem; }
+        .testimonial-card .author span { color: var(--gray); font-weight: 400; }
+
+        /* ===== PRICING ===== */
+        .pricing-card {
+            max-width: 480px; margin: 0 auto; background: var(--navy-light);
+            border: 2px solid var(--gold); border-radius: 16px;
+            padding: 3rem; text-align: center; position: relative; overflow: hidden;
+        }
+        .pricing-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+        }
+        .pricing-badge {
+            display: inline-block; background: var(--gold); color: var(--navy);
+            padding: 0.3rem 0.9rem; border-radius: 100px; font-size: 0.75rem;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1.25rem;
+        }
+        .pricing-card .price {
+            font-size: 3.5rem; font-weight: 900; letter-spacing: -0.03em; margin-bottom: 0.25rem;
+        }
+        .pricing-card .price-note { color: var(--gray); font-size: 0.9rem; margin-bottom: 2rem; }
+        .pricing-includes { text-align: left; margin-bottom: 2rem; }
+        .pricing-includes li {
+            padding: 0.5rem 0; color: var(--gray-light); font-size: 0.95rem;
+            list-style: none; padding-left: 1.75rem; position: relative;
+        }
+        .pricing-includes li::before {
+            content: '✓'; position: absolute; left: 0; color: var(--gold); font-weight: 700;
+        }
+
+        /* ===== COUNTDOWN ===== */
+        .cd-unit {
+            background: var(--navy); border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 10px; padding: 0.6rem 0.9rem; min-width: 60px; text-align: center;
+        }
+        .cd-unit .cd-num { font-size: 1.5rem; font-weight: 900; color: var(--gold); display: block; }
+        .cd-unit .cd-label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gray); }
+
+        /* ===== FAQ ===== */
+        .faq { background: var(--navy-light); }
+        .faq-list { max-width: 700px; margin: 0 auto; }
+        .faq-item {
+            border-bottom: 1px solid rgba(255,255,255,0.06); padding: 1.5rem 0;
+        }
+        .faq-question {
+            width: 100%; background: none; border: none; color: var(--white);
+            font-size: 1.05rem; font-weight: 600; text-align: left; cursor: pointer;
+            display: flex; justify-content: space-between; align-items: center;
+            font-family: inherit; padding: 0;
+        }
+        .faq-question .arrow {
+            font-size: 1.25rem; color: var(--gold); transition: transform 0.3s;
+        }
+        .faq-question.active .arrow { transform: rotate(45deg); }
+        .faq-answer {
+            max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+            color: var(--gray); font-size: 0.95rem; line-height: 1.7;
+        }
+        .faq-answer.open { max-height: 300px; padding-top: 0.75rem; }
+
+        /* ===== FINAL CTA ===== */
+        .final-cta {
+            text-align: center; padding: 6rem 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 100%, rgba(212, 162, 84, 0.08) 0%, transparent 70%),
+                var(--navy);
+        }
+        .final-cta h2 {
+            font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 900;
+            margin-bottom: 1rem; letter-spacing: -0.02em;
+        }
+        .final-cta p { color: var(--gray); font-size: 1.05rem; margin-bottom: 2rem; max-width: 500px; margin-left: auto; margin-right: auto; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            padding: 2.5rem 0; border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center; color: var(--gray); font-size: 0.85rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .mobile-menu { display: block; }
+            .nav-links.open {
+                display: flex; flex-direction: column; position: absolute;
+                top: 100%; left: 0; right: 0; background: var(--navy);
+                padding: 1.5rem 2rem; gap: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05);
+            }
+            .hero { min-height: auto; padding: 8rem 0 4rem; }
+            .host-inner { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+            .host-info p { margin: 0 auto; }
+            .section { padding: 4rem 0; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-logo"><a href="https://www.gostaffify.com" target="_blank" style="display:inline;"><img src="Staffify_White_transparent.png" alt="Staffify" style="height:22px;vertical-align:-4px;margin-right:8px;"></a> The HubSpot <span>Blueprint</span></div>
+    <div class="nav-links" id="navLinks">
+        <a href="#problem">Why This Matters</a>
+        <a href="#pillars">Who It's For</a>
+        <a href="#agenda">Agenda</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#faq">FAQ</a>
+        <a href="https://buy.stripe.com/fZu6oI6PC0ATfCfcSKfIs0u" class="nav-cta">Reserve Your Seat</a>
+    </div>
+    <button class="mobile-menu" id="mobileMenu" aria-label="Menu">☰</button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="container">
+        <div class="hero-inner fade-up">
+            <svg style="width:56px;height:56px;color:var(--gold);margin-bottom:1rem;opacity:0.9;" viewBox="0 0 512 512" fill="currentColor"><path d="M203.7 397.7V330.5c-14.8-7.6-27.3-18.9-36.1-32.7l-57.4 33.1c3.2 5.9 5 12.6 5 19.8 0 22.7-18.4 41.1-41.1 41.1S33 373.4 33 350.7s18.4-41.1 41.1-41.1c4.3 0 8.4.7 12.3 1.9l57.4-33.1c-5.1-13.6-7.9-28.3-7.9-43.7 0-15.3 2.8-30 7.9-43.6l-57.4-33.1c-3.9 1.2-8 1.9-12.3 1.9-22.7 0-41.1-18.4-41.1-41.1S51.4 77.7 74.1 77.7s41.1 18.4 41.1 41.1c0 7.1-1.8 13.9-5 19.8l57.4 33.1c8.8-13.8 21.3-25.1 36.1-32.7V72.3c-18.9-8.4-32.1-27.3-32.1-49.3 0-29.7 24.1-53.8 53.8-53.8h53.8v.1c29.5.3 53.3 24.3 53.3 53.8 0 21.9-13.2 40.8-32.1 49.3v67.2c14.8 7.6 27.3 18.9 36.1 32.7l57.4-33.1c-3.2-5.9-5-12.6-5-19.8 0-22.7 18.4-41.1 41.1-41.1s41.1 18.4 41.1 41.1-18.4 41.1-41.1 41.1c-4.3 0-8.4-.7-12.3-1.9l-57.4 33.1c5.1 13.6 7.9 28.3 7.9 43.6 0 15.4-2.8 30.1-7.9 43.7l57.4 33.1c3.9-1.2 8-1.9 12.3-1.9 22.7 0 41.1 18.4 41.1 41.1s-18.4 41.1-41.1 41.1-41.1-18.4-41.1-41.1c0-7.1 1.8-13.9 5-19.8l-57.4-33.1c-8.8 13.8-21.3 25.1-36.1 32.7v67.2c18.9 8.4 32.1 27.3 32.1 49.3 0 29.7-24.1 53.8-53.8 53.8h-.5c-29.5-.3-53.3-24.3-53.3-53.8.1-22 13.3-40.9 32.2-49.3zM256 180.3c-30.7 0-55.6 24.9-55.6 55.6s24.9 55.6 55.6 55.6 55.6-24.9 55.6-55.6-24.9-55.6-55.6-55.6z"/></svg>
+            <div class="hero-badge">4-Week Live Workshop &bull; Powered by <img src="Staffify_White_transparent.png" alt="Staffify" style="height:16px;vertical-align:-2px;margin-left:4px;"></div>
+            <h1>Build Your Agency's<br><em>Single Source of Truth</em></h1>
+            <p>The intensive HubSpot workshop designed exclusively for real estate photography agencies ready to systemize, scale, and stop running their business from memory.</p>
+            <div class="hero-ctas">
+                <a href="https://buy.stripe.com/fZu6oI6PC0ATfCfcSKfIs0u" class="btn">Claim Your Spot — $1,500 Early Bird</a>
+                <a href="#agenda" class="btn btn-outline">See the Agenda</a>
+            </div>
+            <div class="hero-meta">
+                <div class="hero-meta-item">
+                    <strong>4 Weeks</strong>
+                    <span>Live &amp; Interactive</span>
+                </div>
+                <div class="hero-meta-item">
+                    <strong>April 29 – May 22</strong>
+                    <span>Mark Your Calendar</span>
+                </div>
+                <div class="hero-meta-item">
+                    <strong>Limited Seats</strong>
+                    <span>Intimate Group Setting</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem section" id="problem">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">The Problem</div>
+            <div class="section-title">Your Agency Runs on Chaos — Not Systems</div>
+            <div class="section-sub">Most RE photography agencies piece together tools, spreadsheets, and memory. It works — until it doesn't.</div>
+        </div>
+        <div class="problem-grid">
+            <div class="problem-card fade-up">
+                <div class="icon">🔥</div>
+                <h3>Leads Slip Through the Cracks</h3>
+                <p>Realtors reach out, but without a system, follow-ups get lost and revenue walks out the door.</p>
+            </div>
+            <div class="problem-card fade-up">
+                <div class="icon">🧩</div>
+                <h3>10 Tools, Zero Clarity</h3>
+                <p>Calendly here, Google Sheets there, texts in between. No single place tells you the full picture of your business.</p>
+            </div>
+            <div class="problem-card fade-up">
+                <div class="icon">🧠</div>
+                <h3>Everything Lives in Your Head</h3>
+                <p>You're the bottleneck. You can't sell, delegate, or step away because the "system" is you.</p>
+            </div>
+            <div class="problem-card fade-up" style="grid-column:1/-1;border:1px solid rgba(255,122,89,0.2);background:linear-gradient(135deg,var(--navy-mid),rgba(255,122,89,0.05));">
+                <div class="icon">⏳</div>
+                <h3>CRMs Aren't Retroactive — Every Day You Wait Is Data You Lose</h3>
+                <p>It doesn't matter if you're a solo shooter or a 20-person agency. Every client interaction, every quote, every follow-up that happens outside a system is gone forever. The agencies that start now build a compounding advantage that latecomers can never catch up to.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROOF -->
+<section class="proof section" id="proof">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Quoting Like a Pro</div>
+            <div class="section-title">328 Deals Closed. 83.7% Win Rate. A Commercial Department That Wins.</div>
+            <div class="section-sub">Most agencies guess at pricing and hope for the best. We built a commercial department inside HubSpot — structured quoting, competitive pricing, and a pipeline that's priced to win jobs, not just send proposals.</div>
+        </div>
+        <div class="proof-inner fade-up">
+            <div class="proof-screenshot">
+                <img src="cpd-pipeline.png" alt="HubSpot CPD Pipeline showing 328 closed won deals and $815K in revenue">
+            </div>
+            <div>
+                <h3 style="font-size:1.3rem;font-weight:800;margin-bottom:0.75rem;">Build a Commercial Department — Not Just a Price List</h3>
+                <p style="color:var(--gray-light);font-size:0.95rem;margin-bottom:0.5rem;">This workshop teaches you how to build expert-level quoting into your agency's DNA. From structuring your pricing tiers and packages, to building a deal pipeline that tracks every quote from first conversation to closed won — you'll leave with a commercial operation that consistently wins work.</p>
+                <p style="color:var(--gray-light);font-size:0.95rem;">Learn how to price competitively without racing to the bottom, create proposals that close faster, automate follow-ups so nothing falls through, and build the quoting infrastructure that took Flylisted from guesswork to an 83.7% close rate.</p>
+                <div class="proof-stats">
+                    <div class="stat-card">
+                        <div class="stat-num">328</div>
+                        <div class="stat-label">Deals Closed Won</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">83.7%</div>
+                        <div class="stat-label">Close Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">10</div>
+                        <div class="stat-label">Active Quotes</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-num">$0</div>
+                        <div class="stat-label">Guesswork Left</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PILLARS -->
+<section class="section" id="pillars">
+    <div class="container">
+        <div class="fade-up" style="text-align:center; margin-bottom:3rem;">
+            <div class="section-label">Who This Is For</div>
+            <div class="section-title">Whether You Want to Sell, Delegate, or Automate</div>
+            <div class="section-sub" style="margin-left:auto; margin-right:auto;">This workshop meets you where you are and builds the foundation for where you're going.</div>
+        </div>
+        <div class="pillars-grid">
+            <div class="pillar-card fade-up">
+                <div class="pillar-icon">💰</div>
+                <h3>Sell Your Agency</h3>
+                <p>Buyers don't pay top dollar for a business that lives in the owner's head. Build a documented, systemized operation that commands a premium valuation.</p>
+            </div>
+            <div class="pillar-card fade-up">
+                <div class="pillar-icon">🤝</div>
+                <h3>Delegate With Confidence</h3>
+                <p>Stop being the only person who knows how things work. Create systems that let your team execute without hand-holding.</p>
+            </div>
+            <div class="pillar-card fade-up">
+                <div class="pillar-icon">⚡</div>
+                <h3>Automate Everything</h3>
+                <p>Turn repetitive workflows into automated pipelines — from lead intake to job scheduling to invoicing. Free up hours every single week.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- AGENDA -->
+<section class="agenda section" id="agenda">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">The Agenda</div>
+            <div class="section-title">4 Weeks. One Transformed Business.</div>
+            <div class="section-sub">Each week builds on the last. By Week 4, you'll have a fully operational HubSpot system built for your agency.</div>
+        </div>
+        <div class="agenda-grid">
+            <div class="day-card fade-up">
+                <div class="day-num">Week 1 — Apr 29</div>
+                <h3>Foundation &amp; Client Segmentation</h3>
+                <ul>
+                    <li>Set up your CRM structure (contacts, companies, deals)</li>
+                    <li>Segment clients by type: luxury, commercial, recurring, one-time</li>
+                    <li>Build smart lists and views for targeted outreach</li>
+                    <li>Import, clean, and tag your existing data</li>
+                </ul>
+            </div>
+            <div class="day-card fade-up">
+                <div class="day-num">Week 2 — May 6</div>
+                <h3>Automations &amp; Workflows</h3>
+                <ul>
+                    <li>Automate segment-specific follow-ups and nurture sequences</li>
+                    <li>Build workflows that handle each client type differently</li>
+                    <li>Auto-engage clients who haven't booked in 60+ days</li>
+                    <li>Automatically follow up on cancelled orders to win them back</li>
+                    <li>Create lead capture forms that auto-segment on intake</li>
+                </ul>
+            </div>
+            <div class="day-card fade-up">
+                <div class="day-num">Week 3 — May 13</div>
+                <h3>Quoting Like a Pro</h3>
+                <ul>
+                    <li>Build your pricing structure and package tiers</li>
+                    <li>Create a quoting pipeline priced to win jobs</li>
+                    <li>Set up proposals, templates, and deal tracking</li>
+                    <li>Build your commercial department dashboard</li>
+                </ul>
+            </div>
+            <div class="day-card fade-up">
+                <div class="day-num">Week 4 — May 20</div>
+                <h3>Scale &amp; Optimize</h3>
+                <ul>
+                    <li>Integrate your existing tools with HubSpot</li>
+                    <li>Build SOPs your team can follow</li>
+                    <li>Stress-test your entire system end-to-end</li>
+                    <li>Create your 90-day optimization roadmap</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOST -->
+<section class="section" id="host">
+    <div class="container">
+        <div class="fade-up">
+            <div class="section-label">Your Host</div>
+        </div>
+        <div class="host-inner fade-up">
+            <div class="host-photo" style="overflow:hidden;padding:0;"><img src="paul-headshot.jpg" alt="Paul Chareth" style="width:100%;height:100%;object-fit:cover;"></div>
+            <div class="host-info">
+                <h3>Paul Chareth</h3>
+                <div class="host-role">Real Estate Services &amp; HubSpot Specialist</div>
+                <p>Paul has spent years helping real estate photography agencies build systemized operations that don't depend on any single person. He's seen firsthand what separates agencies that scale from those that stay stuck — and it almost always comes down to having a single source of truth. This workshop is the distillation of everything he's learned.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials section" id="testimonials">
+    <div class="container">
+        <div class="fade-up" style="text-align:center; margin-bottom:3rem;">
+            <div class="section-label">What Others Are Saying</div>
+            <div class="section-title">Results Speak for Themselves</div>
+        </div>
+        <div class="testimonial-grid">
+            <div class="testimonial-card fade-up">
+                <div class="stars">★★★★★</div>
+                <blockquote>"Hands down one of the most impactful things I've ever done is work with Paul and StaffifyAcademy."</blockquote>
+                <div class="author">Tevin Colon <span>— Lightreel Media, Owner</span></div>
+            </div>
+            <div class="testimonial-card fade-up">
+                <div class="stars">★★★★★</div>
+                <blockquote>"I rapidly grew my revenue, I rapidly grew my social media presence, and it allowed me to take on new clients in different avenues."</blockquote>
+                <div class="author">Raffi Sarajian <span>— Gotham Media, Owner</span></div>
+            </div>
+            <div class="testimonial-card fade-up">
+                <div class="stars">★★★★★</div>
+                <blockquote>"Paul and the team really crushed it. They showed me a lot of blind spots in my business to help diversify and make it stronger."</blockquote>
+                <div class="author">Michael Muchnij <span>— Home &amp; Hearth Productions, Owner</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+    <div class="container">
+        <div class="fade-up" style="text-align:center; margin-bottom:3rem;">
+            <div class="section-label">Investment</div>
+            <div class="section-title">One Workshop. Lifetime Returns.</div>
+        </div>
+        <div class="pricing-card fade-up">
+            <div class="pricing-badge">First 10 Seats — Early Bird</div>
+            <div style="margin-bottom:1.5rem;">
+                <div id="countdown" style="display:flex;justify-content:center;gap:0.75rem;margin-bottom:1rem;"></div>
+            </div>
+            <div class="price" style="position:relative;">
+                <span style="font-size:1.25rem;color:var(--gray);text-decoration:line-through;display:block;margin-bottom:0.25rem;">$1,999</span>
+                $1,500
+            </div>
+            <div class="price-note">Early bird pricing — only 10 seats at this rate</div>
+            <ul class="pricing-includes">
+                <li>4 weeks of live, hands-on HubSpot training</li>
+                <li>Custom CRM setup built during the workshop</li>
+                <li>Automation templates designed for RE photo agencies</li>
+                <li>Dashboard and reporting templates</li>
+                <li>Recordings of all sessions for future reference</li>
+                <li>Private community access for ongoing support</li>
+                <li>90-day optimization roadmap</li>
+            </ul>
+            <a href="https://buy.stripe.com/fZu6oI6PC0ATfCfcSKfIs0u" class="btn" style="width:100%; text-align:center;">Reserve Your Seat Now</a>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq section" id="faq">
+    <div class="container">
+        <div class="fade-up" style="text-align:center; margin-bottom:3rem;">
+            <div class="section-label">FAQ</div>
+            <div class="section-title">Got Questions?</div>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item fade-up">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Do I need any HubSpot experience?
+                    <span class="arrow">+</span>
+                </button>
+                <div class="faq-answer">No. This workshop is built for real estate photography agency owners, not HubSpot experts. We start from scratch and build together. Whether you've never logged in or you've been tinkering for months, you'll leave with a fully operational system.</div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    What if I already use another CRM?
+                    <span class="arrow">+</span>
+                </button>
+                <div class="faq-answer">Great — we'll show you how to migrate and why HubSpot is the most powerful and flexible option for agencies at your stage. The principles apply regardless, but the hands-on work is HubSpot-specific.</div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Is this live or pre-recorded?
+                    <span class="arrow">+</span>
+                </button>
+                <div class="faq-answer">100% live. You'll be building in real-time alongside the group with direct access to ask questions and get feedback. Recordings are provided so you can revisit anything.</div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    What's the time commitment each day?
+                    <span class="arrow">+</span>
+                </button>
+                <div class="faq-answer">Plan for approximately 3-4 hours per day. Specific session times will be shared once you register. The schedule is designed to be intensive but manageable.</div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    Can I send a team member instead?
+                    <span class="arrow">+</span>
+                </button>
+                <div class="faq-answer">Absolutely. In fact, having your ops person or office manager attend alongside you is one of the best moves you can make. The system you build becomes theirs to run. Contact us about team pricing.</div>
+            </div>
+            <div class="faq-item fade-up">
+                <button class="faq-question" onclick="toggleFaq(this)">
+                    What's the refund policy?
+                    <span class="arrow">+</span>
+                </button>
+                <div class="faq-answer">If you attend Day 1 and feel this isn't for you, we'll issue a full refund — no questions asked. We're confident you'll see the value immediately.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+    <div class="container fade-up">
+        <h2>CRMs Aren't Retroactive. The Best Time to Start Is Now.</h2>
+        <p>It doesn't matter if you're a one-person operation or a 20-person agency — every day without a system is data you'll never get back. The sooner you build it, the more powerful it becomes.</p>
+        <a href="https://buy.stripe.com/fZu6oI6PC0ATfCfcSKfIs0u" class="btn">Claim Your Spot — $1,500 (Only 10 Seats)</a>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="container">
+        <p>&copy; 2026 The HubSpot Blueprint. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // FAQ toggle
+    function toggleFaq(btn) {
+        btn.classList.toggle('active');
+        btn.nextElementSibling.classList.toggle('open');
+    }
+
+    // Mobile menu
+    document.getElementById('mobileMenu').addEventListener('click', () => {
+        document.getElementById('navLinks').classList.toggle('open');
+    });
+
+    // Countdown timer — 7 days from now (adjust as needed)
+    (function() {
+        const end = new Date(Date.now() + 22 * 60 * 60 * 1000);
+        const el = document.getElementById('countdown');
+        function update() {
+            const diff = Math.max(0, end - new Date());
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            el.innerHTML =
+                `<div class="cd-unit"><span class="cd-num">${d}</span><span class="cd-label">Days</span></div>` +
+                `<div class="cd-unit"><span class="cd-num">${String(h).padStart(2,'0')}</span><span class="cd-label">Hours</span></div>` +
+                `<div class="cd-unit"><span class="cd-num">${String(m).padStart(2,'0')}</span><span class="cd-label">Min</span></div>` +
+                `<div class="cd-unit"><span class="cd-num">${String(s).padStart(2,'0')}</span><span class="cd-label">Sec</span></div>`;
+        }
+        update();
+        setInterval(update, 1000);
+    })();
+</script>
+
+</body>
+</html>
